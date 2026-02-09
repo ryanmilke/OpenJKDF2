@@ -1,4 +1,4 @@
-MSGS 100          # <--- DON'T FORGET TO UPDATE THIS COUNT
+MSGS 110          # <--- DON'T FORGET TO UPDATE THIS COUNT
 
 #  "<key>"     <unused number>   "<string>"
 
@@ -151,6 +151,10 @@ MSGS 100          # <--- DON'T FORGET TO UPDATE THIS COUNT
    "GAMERECORD"      0 "Game Record"
    "DEBUG"           0 "Debug"
    "USELASTSELECTED" 0 "Use Selected Skill/Item"
+   "WEAPONSCROLL"    0 "Weapon Scroll"
+   "WEAPONSCROLL_A"  0 " (Axis)"
+   "WEAPONSCROLL_R"  0 " (Axis Rev.)"
+   "WEAPONSCROLL_K"  0 " (Button)"
 
 
 END

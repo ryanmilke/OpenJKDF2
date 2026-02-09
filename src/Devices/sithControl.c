@@ -114,6 +114,7 @@ static const char *sithControl_aFunctionStrs[INPUT_FUNC_MAX+1] =
     "ACTIVATE31",
 #ifdef QOL_IMPROVEMENTS
     "USELASTSELECTED", // Common button for both items and force power usage for controllers
+    "WEAPONSCROLL",
 #endif // QOL_IMPROVEMENTS
     "INPUT_FUNC_MAX"
 };
@@ -245,6 +246,7 @@ void sithControl_InitFuncToControlType()
         sithControl_inputFuncToControlType[INPUT_FUNC_DEBUG] = 4 | 1;
 #ifdef QOL_IMPROVEMENTS
     sithControl_inputFuncToControlType[INPUT_FUNC_USELASTSELECTED] = 4 | 1;
+    sithControl_inputFuncToControlType[INPUT_FUNC_WEAPONSCROLL] = 2 | 1;
 #endif
 }
 
@@ -576,7 +578,7 @@ int sithControl_ReadConf()
         {
             v0 = _atoi(stdConffile_entry.args[1].value);
             v1 = v0;
-            if ( v0 <= 0x4A && (sithControl_inputFuncToControlType[v0] & 1) != 0 && _sscanf(stdConffile_entry.args[3].value, "%x", &v19) == 1 )
+            if ( v0 < INPUT_FUNC_MAX && (sithControl_inputFuncToControlType[v0] & 1) != 0 && _sscanf(stdConffile_entry.args[3].value, "%x", &v19) == 1 )
             {
                 dxKeyNum = _atoi(stdConffile_entry.args[2].value);
                 dxKeyNum_ = dxKeyNum;
@@ -653,6 +655,17 @@ LABEL_30:
             }
         }
     }
+
+#ifdef QOL_IMPROVEMENTS
+    // Apply default weapon scroll binding if not present in saved config
+    if ( sithControl_aInputFuncToKeyinfo[INPUT_FUNC_WEAPONSCROLL].numEntries == 0 )
+    {
+        stdControlKeyInfoEntry *v10 = sithControl_MapAxisFunc(INPUT_FUNC_WEAPONSCROLL, AXIS_MOUSE_Z, 0);
+        if ( v10 )
+            v10->binaryAxisVal = 1.0;
+    }
+#endif
+
     return 1;
 }
 
@@ -1991,10 +2004,16 @@ void sithControl_MapDefaultsMouse()
         v10->binaryAxisVal = 0.3;
 #endif
     
+#ifdef QOL_IMPROVEMENTS
+    v10 = sithControl_MapAxisFunc(INPUT_FUNC_WEAPONSCROLL, AXIS_MOUSE_Z, 0);
+    if ( v10 )
+        v10->binaryAxisVal = 1.0;
+#else
     v10 = sithControl_MapAxisFunc(INPUT_FUNC_PITCH, AXIS_MOUSE_Z, 0);
     if ( v10 )
         v10->binaryAxisVal = 4.0;
-    
+#endif
+
     sithControl_DefaultHelper(INPUT_FUNC_FIRE1, KEY_MOUSE_B1, 2);
     sithControl_DefaultHelper(INPUT_FUNC_JUMP, KEY_MOUSE_B2, 2);
     sithControl_DefaultHelper(INPUT_FUNC_FIRE2, KEY_MOUSE_B3, 2);

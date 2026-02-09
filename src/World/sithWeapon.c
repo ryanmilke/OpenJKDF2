@@ -1206,6 +1206,24 @@ int sithWeapon_HandleWeaponKeys(sithThing *player, flex_t a2)
                 }
             }
 
+#ifdef QOL_IMPROVEMENTS
+            {
+                flex_t weaponScrollVal = sithControl_GetAxisNonRaw(INPUT_FUNC_WEAPONSCROLL);
+                if ( weaponScrollVal > 0.0 )
+                {
+                    if (sithThing_MotsTick(7,1,1.0)) {
+                        sithWeapon_Syncunused1(player);
+                    }
+                }
+                else if ( weaponScrollVal < 0.0 )
+                {
+                    if (sithThing_MotsTick(7,1,-1.0)) {
+                        sithWeapon_Syncunused2(player);
+                    }
+                }
+            }
+#endif
+
             if ( sithWeapon_8BD024 != -1 )
                 return 0;
 
