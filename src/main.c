@@ -335,26 +335,26 @@ extern "C"
 int main(int argc, char** argv)
 {
 #ifdef ARCH_WASM
-    EM_ASM(
-        FS.mkdir('/jk1/player');
-        FS.mkdir('/mots/player');
-        FS.mkdir('/jk1/persist');
-        FS.mkdir('/mots/persist');
-
-        //FS.mount(NODEFS, { root: './jk1/episode' }, '/jk1/episode');
-        //FS.createLazyFile('/jk1/episode', "jk1demo.gob", "jk1/episode/jk1demo.gob", true, false);
-        //FS.createLazyFile('/jk1/episode', "jk1mpdem.gob", "jk1/episode/jk1mpdem.gob", true, false);
-
-        FS.mount(IDBFS, {}, '/jk1/player');
-        FS.mount(IDBFS, {}, '/mots/player');
-        FS.mount(IDBFS, {}, '/jk1/persist');
-        FS.mount(IDBFS, {}, '/mots/persist');
-
-        // Then sync
-        FS.syncfs(true, function (err) {
-            // Error
-        });
-    );
+//    EM_ASM(
+//        FS.mkdir('/jk1/player');
+//        FS.mkdir('/mots/player');
+//        FS.mkdir('/jk1/persist');
+//        FS.mkdir('/mots/persist');
+//
+//        //FS.mount(NODEFS, { root: './jk1/episode' }, '/jk1/episode');
+//        //FS.createLazyFile('/jk1/episode', "jk1demo.gob", "jk1/episode/jk1demo.gob", true, false);
+//        //FS.createLazyFile('/jk1/episode', "jk1mpdem.gob", "jk1/episode/jk1mpdem.gob", true, false);
+//
+//        FS.mount(IDBFS, {}, '/jk1/player');
+//        FS.mount(IDBFS, {}, '/mots/player');
+//        FS.mount(IDBFS, {}, '/jk1/persist');
+//        FS.mount(IDBFS, {}, '/mots/persist');
+//
+//        // Then sync
+//        FS.syncfs(true, function (err) {
+//            // Error
+//        });
+//    );
 #endif // ARCH_WASM
 
 #if 0

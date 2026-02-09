@@ -42,6 +42,9 @@ extern int Window_isFullscreen;
 void Window_SetHiDpi(int val);
 void Window_SetFullscreen(int val);
 
+#ifdef ARCH_WASM
+void neon_canvas_resize();
+#endif
 
 extern int Window_screenXSize;
 extern int Window_screenYsSize;

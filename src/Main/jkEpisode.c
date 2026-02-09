@@ -206,7 +206,9 @@ LABEL_30:
                     }
                     stdString_GetQuotedStringContents(v29, jkEpisode_var4, 128);
                     v22 = jkStrings_GetUniStringWithFallback(jkEpisode_var4);
-                    _wcsncpy(v16->unistr, v22, 0x40u);
+                    
+                    _wcsncpy(v16->unistr, v22, 0x1Fu);
+                                        
                     v16->type = JK_EPISODE_SINGLEPLAYER;
                     v24 = 0;
                     pHS->fileGets(v17, v29, 64);

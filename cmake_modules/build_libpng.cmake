@@ -30,6 +30,7 @@ ExternalProject_Add(
                         -DCMAKE_OSX_ARCHITECTURES=${CMAKE_OSX_ARCHITECTURES}
                         -DCMAKE_POLICY_DEFAULT_CMP0074:STRING=NEW
                         -DPNG_STATIC:BOOL=TRUE
+                        -DPNG_SHARED:BOOL=FALSE
                         -DPNG_EXECUTABLES:BOOL=FALSE
                         -DPNG_TESTS:BOOL=FALSE
                         -DZLIB_ROOT:PATH=${ZLIB_ROOT}

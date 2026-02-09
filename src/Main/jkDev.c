@@ -98,7 +98,7 @@ void jkDev_Startup()
 
 #ifdef QOL_IMPROVEMENTS
     jkDev_RegisterCmd(jkDev_CmdNoclip, "noclip", "Noclip", 0);
-	jkDev_RegisterCmd(jkDev_Custom_CmdJumpNextCheckpoint, "checkmate", "", 0);  // cycles to next auto-restart checkpoint
+    jkDev_RegisterCmd(jkDev_Custom_CmdJumpNextCheckpoint, "checkmate", "", 0);  // cycles to next auto-restart checkpoint
 #endif
 
     jkDev_bInitted = 1;
@@ -382,7 +382,8 @@ LABEL_7:
     }
     v5 = v1;
     v6 = v1;
-    _wcsncpy(jkDev_aEntries[v1].text, str, 0x80u);
+    _wcsncpy(jkDev_aEntries[v1].text, str, 0x7Fu);
+    jkDev_aEntries[v1].text[0x7F] = 0;
     jkDev_aEntries[v6].field_104 = 0;
     jkDev_aEntries[v6].timeMsExpiration = stdPlatform_GetTimeMsec() + 5000;
     jkDev_bScreenNeedsUpdate = 1;
@@ -450,7 +451,8 @@ LABEL_9:
             {
                 if ( __wcscmp(v4->text, a2) )
                 {
-                    _wcsncpy(v4->text, a2, 0x80u);
+                    _wcsncpy(v4->text, a2, 0x7Fu);
+                    v4->text[0x7F] = 0;
                     v4->bDrawEntry = 2;
                     v4->field_10C = 2;
                     jkDev_bScreenNeedsUpdate = 1;
@@ -1093,7 +1095,8 @@ int jkDev_UpdateEntries()
             {
                 if ( v4 != v0 )
                 {
-                    _wcsncpy(v2->text, v3->text, 0x80u);
+                    _wcsncpy(v2->text, v3->text, 0x7Fu);
+                    v2->text[0x7F] = 0;
                     result = 1;
                     v2->timeMsExpiration = v3->timeMsExpiration;
                     v2->field_104 = v3->field_104;

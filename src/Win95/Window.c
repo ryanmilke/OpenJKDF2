@@ -1276,6 +1276,16 @@ EM_JS(int, canvas_get_height, (), {
 });
 #endif
 
+#ifdef ARCH_WASM
+void EMSCRIPTEN_KEEPALIVE neon_canvas_resize() {
+  // stdPlatform_Printf("Received neon canvas resize notification\n");
+  int w = canvas_get_width();
+  int h = canvas_get_height();
+  
+  SDL_SetWindowSize(displayWindow, w, h);
+}
+#endif
+
 void Window_RecreateSDL2Window()
 {
 #ifdef ARCH_WASM

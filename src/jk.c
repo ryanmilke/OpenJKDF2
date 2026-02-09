@@ -309,7 +309,7 @@ int _memcmp (const void* str1, const void* str2, size_t count)
   while (count-- > 0)
     {
       if (*s1++ != *s2++)
-	  return s1[-1] < s2[-1] ? -1 : 1;
+    return s1[-1] < s2[-1] ? -1 : 1;
     }
   return 0;
 }
@@ -938,13 +938,11 @@ void jk_BeginPaint(int a, struct tagPAINTSTRUCT * lpPaint)
 
 int jk_vsnwprintf(wchar_t * a, size_t b, const wchar_t *fmt, va_list list)
 {
-#ifdef ARCH_WASM
-    return vswprintf(a, b, fmt, list);
-#elif defined(MACOS) || defined(WIN64_STANDALONE)
-    return vsnwprintf_(a,b, fmt,list);
-#else
+    // Use custom implementation on all platforms.
+    // System vswprintf assumes 4-byte wchar_t, which is incompatible
+    // with -fshort-wchar (2-byte wchar_t) and causes string truncation
+    // and crashes at -O3 when the compiler inlines it.
     return vsnwprintf_(a, b, fmt, list);
-#endif
 }
 
 void jk_EndPaint(HWND hWnd, const PAINTSTRUCT *lpPaint)
@@ -1130,7 +1128,9 @@ wchar_t* __wcscat(wchar_t * a, const wchar_t * b)
 {
     wchar_t* ret = a;
     a += __wcslen(a);
-    memmove(a, b, __wcslen(b) * sizeof(wchar_t));
+    size_t blen = __wcslen(b);
+    memmove(a, b, blen * sizeof(wchar_t));
+    a[blen] = 0;
     return ret;
 }
 
@@ -1148,13 +1148,13 @@ wchar_t* __wcschr(const wchar_t * s, wchar_t c)
 wchar_t* __wcsncpy(wchar_t * a, const wchar_t * b, size_t c)
 {
     wchar_t* ret = a;
-    size_t len = __wcslen(b) * sizeof(wchar_t);
-    if (len > c*sizeof(wchar_t)) {
-        len = c*sizeof(wchar_t);
+    size_t blen = __wcslen(b);
+    if (blen > c) {
+        blen = c;
     }
-    memmove(a, b, len);
-    a[len] = 0;
-    return &a[len];
+    memmove(a, b, blen * sizeof(wchar_t));
+    a[blen] = 0;
+    return &a[blen];
 }
 
 wchar_t* __wcsrchr(const wchar_t * s, wchar_t c)

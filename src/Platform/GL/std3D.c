@@ -3624,7 +3624,7 @@ void std3D_PurgeEntireTextureCache()
     }
 
     if (!std3D_loadedTexturesAmt) {
-        jk_printf("Skipping texture cache purge, nothing loaded.\n");
+        //jk_printf("Skipping texture cache purge, nothing loaded.\n");
         return;
     }
 

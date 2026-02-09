@@ -1,3 +1,7 @@
+# Fork notes
+
+My fork to run in Neon, a currently unreleased web app. Bug fixes are probably useful upstream.
+
 # OpenJKDF2
 
 ![MacOS Screenshot](docs/images/screenshot.png)
